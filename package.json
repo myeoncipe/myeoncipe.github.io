@@ -74,5 +74,9 @@
       "prettier --write"
     ]
   },
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "yarn@3.6.1",
+  "resolutions": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  }
 }
