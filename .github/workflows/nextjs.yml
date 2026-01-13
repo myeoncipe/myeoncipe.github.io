@@ -25,7 +25,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          # 캐시 설정을 삭제하여 lock 파일이 없어도 에러가 나지 않게 합니다.
+          cache: 'npm' # npm 캐시를 사용하겠다고 명시
+          cache-dependency-path: 'package-lock.json'
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
