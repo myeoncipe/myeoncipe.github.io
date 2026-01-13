@@ -25,18 +25,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'npm' # npm 캐시를 사용하겠다고 명시
-          cache-dependency-path: 'package-lock.json'
+          # ❌ 여기서 cache 관련 줄을 다 지웠습니다. 
+          # 이렇게 해야 깃허브가 yarn.lock이 없다고 화내지 않습니다.
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Install dependencies
-        # 설치 시 lock 파일 생성을 강제하지 않도록 설정합니다.
+        # lock 파일이 없어도 npm이 알아서 설치하도록 합니다.
         run: npm install --legacy-peer-deps
 
       - name: Build with Next.js
-        # Turbopack 충돌을 피하기 위해 webpack으로 빌드합니다.
+        # Webpack 엔진을 사용하여 빌드합니다.
         run: npx next build --webpack
 
       - name: Upload artifact
