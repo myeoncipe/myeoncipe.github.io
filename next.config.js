@@ -5,6 +5,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
+// 배포 환경인지 확인 (production일 때만 output: 'export' 적용)
+const isProd = process.env.NODE_ENV === 'production'
+
 // CSP 설정
 const ContentSecurityPolicy = `
   default-src 'self';
@@ -52,13 +55,14 @@ const basePath = process.env.BASE_PATH || undefined
 module.exports = () => {
   const plugins = [withContentlayer, withBundleAnalyzer]
   return plugins.reduce((acc, next) => next(acc), {
-    output: 'export', // 정적 배포 필수 설정
+    // ✅ 로컬 개발 시(dev)에는 undefined, 배포 빌드 시에만 'export' 사용
+    output: isProd ? 'export' : undefined,
+
     basePath,
     reactStrictMode: true,
-    trailingSlash: true, // 정적 배포 시 경로 문제 방지를 위해 true 권장
+    trailingSlash: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
 
-    // 추가: Turbopack 대신 Webpack을 사용하도록 강제 (Next.js 16 에러 방지)
     experimental: {
       turbo: {
         rules: {},
@@ -67,11 +71,11 @@ module.exports = () => {
 
     eslint: {
       dirs: ['app', 'components', 'layouts', 'scripts'],
-      ignoreDuringBuilds: true, // 빌드 시 린트 에러로 인한 중단 방지
+      ignoreDuringBuilds: true,
     },
 
     typescript: {
-      ignoreBuildErrors: true, // 빌드 시 타입 에러로 인한 중단 방지
+      ignoreBuildErrors: true,
     },
 
     images: {
@@ -81,11 +85,11 @@ module.exports = () => {
           hostname: 'picsum.photos',
         },
       ],
-      // ✅ 수정 핵심: output: 'export' 환경에서는 무조건 true여야 합니다.
       unoptimized: true,
     },
 
     async headers() {
+      // output: 'export' 모드에서는 headers가 무시되지만, 로컬 개발을 위해 유지
       return [
         {
           source: '/(.*)',
@@ -95,6 +99,7 @@ module.exports = () => {
     },
 
     async rewrites() {
+      // output: 'export' 모드에서는 rewrites가 무시되지만, 로컬 개발 시 주소 연결을 위해 유지
       return [
         { source: '/recipe', destination: '/blog' },
         { source: '/recipe/page/:page', destination: '/blog/page/:page' },
