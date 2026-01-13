@@ -25,19 +25,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          # ⚠️ 이 부분이 에러의 원인이었습니다. 
-          # lock 파일이 없어도 에러가 안 나도록 캐시 설정을 뺍니다.
-          cache: 'npm' 
+          # 캐시 설정을 삭제하여 lock 파일이 없어도 에러가 나지 않게 합니다.
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Install dependencies
-        # yarn 대신 npm으로 설치합니다.
+        # 설치 시 lock 파일 생성을 강제하지 않도록 설정합니다.
         run: npm install --legacy-peer-deps
 
       - name: Build with Next.js
-        # Turbopack 대신 Webpack을 쓰도록 강제합니다.
+        # Turbopack 충돌을 피하기 위해 webpack으로 빌드합니다.
         run: npx next build --webpack
 
       - name: Upload artifact
