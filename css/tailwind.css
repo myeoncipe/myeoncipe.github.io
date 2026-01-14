@@ -1,12 +1,13 @@
+/* 1. 최상단: 모든 @import 규칙 (순서 중요) */
 @import 'tailwindcss';
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+
+/* 2. 플러그인 및 설정 */
 @plugin "@tailwindcss/forms";
 @plugin '@tailwindcss/typography';
 @source '../node_modules/pliny';
 
-/* 1. 폰트 임포트 */
-/* 제목용 (프리텐다드) */
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
-/* 본문 및 나머지용 (이서윤체) */
+/* 3. 폰트 페이스 선언 */
 @font-face {
   font-family: 'IsYun';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff')
@@ -17,15 +18,15 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* 2. 통합 테마 설정 */
+/* 4. 통합 테마 설정 */
 @theme {
-  /* 기본 폰트를 'IsYun'으로 설정하여 전체 적용 */
+  /* 기본 폰트: 이서윤체 */
   --font-sans:
     'IsYun', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
 
-  /* h1 전용 폰트 변수 */
-  --font-h1: 'Pretendard', sans-serif;
+  /* h1 전용: 프리텐다드 가변 글꼴 */
+  --font-h1: 'Pretendard Variable', 'Pretendard', sans-serif;
 
   /* Colors (도파민 레시피 컨셉) */
   --color-primary-50: oklch(0.971 0.014 343.198);
@@ -62,7 +63,7 @@
   --z-80: 80;
 }
 
-/* 3. 베이스 레이어 설정 */
+/* 5. 베이스 레이어 설정 */
 @layer base {
   *,
   ::after,
@@ -73,20 +74,22 @@
   }
 
   body {
-    /* 기본적으로 이서윤체가 모든 곳에 적용됩니다 */
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    word-break: keep-all; /* 한글 가독성을 위해 단어 단위 줄바꿈 */
+    word-break: keep-all;
+    line-height: 1.6;
   }
 
-  /* h1 태그만 프리텐다드 적용 */
+  /* h1: 프리텐다드 900(Black) 적용 및 자간 조정 */
   h1 {
     font-family: var(--font-h1);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-weight: 900;
+    font-variation-settings: 'wght' 900;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
   }
 
-  /* h2 이하는 손글씨(이서윤체) 유지하되 굵기만 조절 */
+  /* h2 이하는 이서윤체 유지 */
   h2,
   h3,
   h4 {
@@ -107,10 +110,10 @@
   }
 }
 
-/* 4. 유틸리티 레이어 (prose 및 애니메이션) */
+/* 6. 유틸리티 레이어 (prose 및 애니메이션) */
 @layer utilities {
   .prose {
-    font-family: var(--font-sans); /* 본문 가독성 */
+    font-family: var(--font-sans);
     & a {
       color: var(--color-primary-500);
       &:hover {
@@ -121,7 +124,9 @@
       }
     }
     & h1 {
-      font-family: var(--font-h1); /* prose 내부 h1도 프리텐다드 */
+      font-family: var(--font-h1);
+      font-weight: 900;
+      font-variation-settings: 'wght' 900;
     }
     & :where(h2, h3) {
       font-weight: 700;
@@ -147,7 +152,6 @@
     }
   }
 
-  /* 애니메이션 및 기타 컴포넌트 */
   .animate-gradient {
     background-size: 200% 200%;
     animation: gradient 3s ease infinite;
@@ -181,7 +185,7 @@
   }
 }
 
-/* 5. Keyframes */
+/* 7. Keyframes */
 @keyframes gradient {
   0%,
   100% {
@@ -202,7 +206,7 @@
   }
 }
 
-/* 기타 스타일 보정 */
+/* 8. 기타 보정 */
 .task-list-item {
   @apply list-none;
 }
