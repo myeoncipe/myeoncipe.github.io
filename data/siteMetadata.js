@@ -1,26 +1,27 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: '고메.zip | Gourmet.zip',
+  title: '고메.zip | gourmetzip',
   author: '고메.zip',
   headerTitle: '고메.zip',
   description:
     '미슐랭급 맛을 압축한 비밀 레시피 파일 📂 아는 맛의 하이엔드화, 도파민 레시피 고메.zip',
   language: 'ko-kr',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://gourmet-zip.vercel.app', // 나중에 실제 도메인으로 변경하세요
-  siteRepo: 'https://github.com/your-repo/gourmet-zip',
+  siteUrl: 'https://gourmetzip.github.io/', // 나중에 실제 도메인으로 변경하세요
+  siteRepo: 'https://gourmetzip.github.io/',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   // mastodon: 'https://mastodon.social/@mastodonuser',
-  email: 'gourmet.zip@email.com',
-  github: 'https://github.com', // 깃허브 주소
-  x: 'https://twitter.com/x',
-  youtube: 'https://youtube.com/@gourmet_zip',
+  email: 'cyd9911@gmail.com',
+  // github: 'https://github.com', // 깃허브 주소
+  // x: 'https://twitter.com/x',
+  youtube: 'https://www.youtube.com/channel/UCVgAAVNMJk3Z4mHR6iEsYfw',
   // linkedin: 'https://www.linkedin.com',
   // threads: 'https://www.threads.net',
-  instagram: 'https://www.instagram.com/gourmet.zip',
+  instagram: 'https://www.instagram.com/gourmetzip',
   // medium: 'https://medium.com',
   // bluesky: 'https://bsky.app/',
+  tiktok: 'https://www.tiktok.com/@gourmetzip',
   locale: 'ko-KR',
   stickyNav: true, // 트렌디한 사이트는 헤더가 고정된 경우가 많아 true 추천
   analytics: {
