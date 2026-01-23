@@ -12,12 +12,10 @@ export async function generateMetadata(props: {
   const params = await props.params
   const category = decodeURI(params.category)
   const categoryNames: Record<string, string> = {
-    godsaeng: '갓생 한끼',
-    clean: '클린 식단',
-    dopamine: '도파민 폭발',
-    convenience: '편의점 털기',
-    mood: '무드 메이커',
-    'fridge-raid': '냉털 챌린지',
+    signature: '시그니처 누들',
+    light: '라이트 누들',
+    easy: '원팬 & 이지',
+    unzip: '소울푸드.zip',
   }
   const categoryName = categoryNames[category] || category
   return genPageMetadata({
@@ -27,7 +25,7 @@ export async function generateMetadata(props: {
 }
 
 export const generateStaticParams = async () => {
-  const categories = ['godsaeng', 'clean', 'dopamine', 'convenience', 'mood', 'fridge-raid']
+  const categories = ['signature', 'light', 'easy', 'unzip']
   return categories.map((category) => ({
     category: encodeURI(category),
   }))
