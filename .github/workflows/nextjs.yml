@@ -25,20 +25,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          # 캐시를 완전히 제거하여 매번 새로운 상태로 빌드하게 유도합니다.
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Install dependencies
-        # legacy-peer-deps로 충돌을 방지하며 깔끔하게 설치합니다.
         run: npm install --legacy-peer-deps
 
-      - name: Build Contentlayer & Next.js
-        # ⚠️ 핵심: contentlayer를 먼저 빌드하여 MDX 데이터를 새로 생성한 뒤 Next 빌드를 시작합니다.
+      - name: Debug and Build Contentlayer
+        # 1. 기존 잔재 삭제 2. 현재 MDX 파일들이 어디 있는지 확인 3. 빌드 강제 실행
         run: |
+          rm -rf .contentlayer
+          rm -rf .next
+          echo "Checking MDX files in data/blog:"
+          ls -R data/blog
           npx contentlayer2 build
-          npx next build --webpack
+          
+      - name: Build Next.js
+        # Webpack 엔진 사용 및 빌드 진행
+        run: npx next build --webpack
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
