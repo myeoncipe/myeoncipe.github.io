@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     url: './',
     siteName: siteMetadata.title,
     images: [siteMetadata.socialBanner],
-    locale: 'en_US',
+    locale: 'ko_KR', // 한국어 서비스이므로 ko_KR 권장
     type: 'website',
   },
   alternates: {
@@ -66,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: '면시피',
+    name: '면시피',
     alternateName: ['면시피', 'myeoncipe'],
     url: siteMetadata.siteUrl,
   }
@@ -77,6 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${space_grotesk.variable} scroll-smooth`}
       suppressHydrationWarning
     >
+      {/* Google tag (gtag.js) */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-LVF37JG82C"
         strategy="afterInteractive"
